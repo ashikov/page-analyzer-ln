@@ -8,7 +8,7 @@ setup:
 	npm install
 
 start:
-	php artisan serve
+	heroku local -f Procfile.dev
 
 lint:
 	composer phpcs
@@ -30,3 +30,9 @@ migrate:
 
 migrate-rollback:
 	php artisan migrate:rollback
+
+serve:
+	php artisan serve
+
+watch:
+	npm run watch
