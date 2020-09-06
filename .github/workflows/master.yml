@@ -11,6 +11,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:12.4
+        env:
+          POSTGRES_USER: ln
+          POSTGRES_PASSWORD: ln
+          POSTGRES_DB: php-l3
+        ports:
+        - 5432:5432
+
     steps:
     - uses: actions/checkout@v1
 
