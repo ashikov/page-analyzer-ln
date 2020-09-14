@@ -11,7 +11,6 @@ class DomainController extends Controller
     {
         $url = $request->input('url');
         $parsedUrl = parse_url(strtolower($url));
-        // [$scheme, $host] = $parsedUrl;
         $host = $parsedUrl['host'];
         $scheme = $parsedUrl['scheme'];
         $domainName = "{$scheme}://{$host}";
@@ -38,7 +37,6 @@ class DomainController extends Controller
     public function index()
     {
         $domains = DB::table('domains')->orderBy('id', 'desc')->get();
-        // dd($domains);
 
         return view('domains.index', compact('domains'));
     }
