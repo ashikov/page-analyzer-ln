@@ -18,3 +18,4 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::resource('domains', 'DomainController')->only(['index', 'store', 'show']);
+Route::resource('domains.checks', 'DomainCheckController')->only(['store']);

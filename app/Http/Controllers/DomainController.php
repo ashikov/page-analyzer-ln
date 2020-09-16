@@ -37,14 +37,16 @@ class DomainController extends Controller
     public function index()
     {
         $domains = DB::table('domains')->orderBy('id', 'desc')->get();
+        $lastChecks = DB::table('domain_checks')->orderBy('created_at', 'asc')->get()->keyBy('domain_id');
 
-        return view('domains.index', compact('domains'));
+        return view('domains.index', compact('domains', 'lastChecks'));
     }
 
     public function show($id)
     {
         $domain = DB::table('domains')->where('id', $id)->first();
+        $checks = DB::table('domain_checks')->where('domain_id', $id)->get();
         
-        return view('domains.show', compact('domain'));
+        return view('domains.show', compact('domain', 'checks'));
     }
 }
