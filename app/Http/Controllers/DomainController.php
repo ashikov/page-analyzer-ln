@@ -9,6 +9,7 @@ class DomainController extends Controller
 {
     public function store(Request $request)
     {
+        $this->validate($request, ['url' => 'required|url']);
         $url = $request->input('url');
         $parsedUrl = parse_url(strtolower($url));
         $host = $parsedUrl['host'];

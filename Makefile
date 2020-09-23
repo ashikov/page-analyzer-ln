@@ -10,7 +10,7 @@ start:
 	heroku local -f Procfile.dev
 
 lint:
-	composer phpcs
+	composer exec -v phpcs
 
 lint-fix:
 	composer phpcbf

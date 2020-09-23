@@ -35,6 +35,15 @@
             </nav>
         </header>
         @include('flash::message')
+
+        @if ($errors->any())
+            <div class="alert alert-danger mb-0">
+                @foreach ($errors->all() as $error)
+                    {{ $error }}
+                @endforeach
+            </div>
+        @endif
+        
         <main class="flex-grow-1">
             @yield('content')
         </main>
