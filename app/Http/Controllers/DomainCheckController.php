@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\ConnectionException;
+use DiDom\Document;
 
 class DomainCheckController extends Controller
 {
@@ -22,9 +23,26 @@ class DomainCheckController extends Controller
         
         $statusCode = $response->status();
 
+        $document = new Document($domain->name, true);
+
+        if ($document->has('h1')) {
+            $h1 = $document->first('h1')->text();
+        }
+
+        if ($document->has('meta[name=keywords]')) {
+            $keywords = $document->first('meta[name=keywords]')->getAttribute('content');
+        }
+
+        if ($document->has('meta[name=description]')) {
+            $description = $document->first('meta[name=description]')->getAttribute('content');
+        }
+
         DB::table('domain_checks')->insert([
                 'domain_id' => $domainId,
                 'status_code' => $statusCode,
+                'h1' => $h1 ?? null,
+                'keywords' => $keywords ?? null,
+                'description' => $description ?? null,
                 "created_at" =>  \Carbon\Carbon::now(),
                 "updated_at" => \Carbon\Carbon::now()
         ]);
