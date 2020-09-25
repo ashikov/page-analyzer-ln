@@ -14,3 +14,4 @@ jobs:
         uses: hexlet/project-action@release
         with:
           project_image: ${{ env.PROJECT_IMAGE }}
+          
