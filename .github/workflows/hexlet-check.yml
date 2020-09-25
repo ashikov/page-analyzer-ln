@@ -1,0 +1,16 @@
+name: hexlet-check
+on:
+  push:
+    branches:
+      - master
+env:
+  PROJECT_IMAGE: hexletprojects/php_l3_page_analyzer_project
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Hexlet project check
+        uses: hexlet/project-action@release
+        with:
+          project_image: ${{ env.PROJECT_IMAGE }}
