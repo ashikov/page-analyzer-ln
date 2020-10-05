@@ -13,14 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      postgres:
+      db:
         image: postgres:12.4
         env:
-          POSTGRES_USER: ln
-          POSTGRES_PASSWORD: ln
-          POSTGRES_DB: php-l3
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: postgres
         ports:
-        - 5432:5432
+          - 5432:5432
 
     steps:
     - uses: actions/checkout@v1
@@ -30,6 +30,8 @@ jobs:
 
     - name: Setup project
       run: make setup
+      env:
+        DB_HOST: localhost
 
     - name: Check lint
       run: make lint
