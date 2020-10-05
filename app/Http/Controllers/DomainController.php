@@ -9,8 +9,8 @@ class DomainController extends Controller
 {
     public function store(Request $request)
     {
-        $this->validate($request, ['url' => 'required|url']);
-        $url = $request->input('url');
+        $this->validate($request, ['name' => 'required|url']);
+        $url = $request->input('name');
         $parsedUrl = parse_url(strtolower($url));
         $host = $parsedUrl['host'];
         $scheme = $parsedUrl['scheme'];

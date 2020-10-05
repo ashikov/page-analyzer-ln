@@ -50,7 +50,7 @@ class DomainControllerTest extends TestCase
     public function testStore()
     {
         $url = 'http://jopa.ru';
-        $response = $this->post(route('domain.store', ['url' => $url]));
+        $response = $this->post(route('domain.store', ['name' => $url]));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
     }
