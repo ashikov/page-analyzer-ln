@@ -28,7 +28,7 @@
                             <a class="nav-link active" href="{{ url('/') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ route('domains.index') }}">Domains</a>
+                            <a class="nav-link " href="{{ route('domain.index') }}">Domains</a>
                         </li>
                     </ul>
                 </div>

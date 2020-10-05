@@ -20,7 +20,7 @@ class DomainController extends Controller
 
         if ($domain) {
             flash('Domain exists')->error();
-            return redirect()->route('domains.show', $domain->id);
+            return redirect()->route('domain.show', $domain->id);
         }
 
         $newDomainId = DB::table('domains')
@@ -32,7 +32,7 @@ class DomainController extends Controller
 
         
         flash('Domain has been added')->success();
-        return redirect()->route('domains.show', $newDomainId);
+        return redirect()->route('domain.show', $newDomainId);
     }
 
     public function index()
@@ -40,7 +40,7 @@ class DomainController extends Controller
         $domains = DB::table('domains')->orderBy('id', 'desc')->get();
         $lastChecks = DB::table('domain_checks')->orderBy('created_at', 'asc')->get()->keyBy('domain_id');
 
-        return view('domains.index', compact('domains', 'lastChecks'));
+        return view('domain.index', compact('domains', 'lastChecks'));
     }
 
     public function show($id)
@@ -48,6 +48,6 @@ class DomainController extends Controller
         $domain = DB::table('domains')->where('id', $id)->first();
         $checks = DB::table('domain_checks')->where('domain_id', $id)->get();
         
-        return view('domains.show', compact('domain', 'checks'));
+        return view('domain.show', compact('domain', 'checks'));
     }
 }

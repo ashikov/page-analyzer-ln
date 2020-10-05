@@ -18,7 +18,7 @@ class DomainCheckController extends Controller
             $response = Http::get($domain->name);
         } catch (ConnectionException $exception) {
             flash('Could not check domain')->error();
-            return redirect()->route('domains.show', $domainId);
+            return redirect()->route('domain.show', $domainId);
         }
         
         $statusCode = $response->status();
@@ -47,6 +47,6 @@ class DomainCheckController extends Controller
                 "updated_at" => \Carbon\Carbon::now()
         ]);
 
-        return redirect()->route('domains.show', $domainId);
+        return redirect()->route('domain.show', $domainId);
     }
 }

@@ -23,7 +23,7 @@
                 </tr>
         </table>
         <h2 class="mt-5 mb-3">{{ __('views.checks.title') }}</h2>
-        {{ Form::open(['url' => route('domains.checks.store', $domain->id), 'method' => 'POST', 'class' => 'mb-3']) }}
+        {{ Form::open(['url' => route('domain.check.store', $domain->id), 'method' => 'POST', 'class' => 'mb-3']) }}
             {{ Form::submit('Run check', ['class' => 'btn btn-primary']) }}
         {{ Form::close() }}
             <table class="table table-bordered table-hover">

@@ -37,20 +37,20 @@ class DomainControllerTest extends TestCase
 
     public function testIndex()
     {
-        $response = $this->get(route('domains.index'));
+        $response = $this->get(route('domain.index'));
         $response->assertOk();
     }
 
     public function testShow()
     {
-        $response = $this->get(route('domains.show', $this->id));
+        $response = $this->get(route('domain.show', $this->id));
         $response->assertOk();
     }
 
     public function testStore()
     {
         $url = 'http://jopa.ru';
-        $response = $this->post(route('domains.store', ['url' => $url]));
+        $response = $this->post(route('domain.store', ['url' => $url]));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
     }
