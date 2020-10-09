@@ -13,8 +13,8 @@ class DomainCheckController extends Controller
 {
     public function store(int $domainId): RedirectResponse
     {
-        $domain = DB::table('domains')->where('id', $domainId)->first();
-
+        $domain = DB::table('domains')->find($domainId);
+        
         try {
             $response = Http::get($domain->name);
         } catch (ConnectionException $exception) {
