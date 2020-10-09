@@ -14,7 +14,7 @@ class DomainCheckController extends Controller
     public function store(int $domainId): RedirectResponse
     {
         $domain = DB::table('domains')->find($domainId);
-        
+
         try {
             $response = Http::get($domain->name);
         } catch (ConnectionException $exception) {
@@ -23,21 +23,13 @@ class DomainCheckController extends Controller
         }
         
         $statusCode = $response->status();
-
+        
         $document = new Document($domain->name, true);
 
-        if ($document->has('h1')) {
-            $h1 = $document->first('h1')->text();
-        }
-
-        if ($document->has('meta[name=keywords]')) {
-            $keywords = $document->first('meta[name=keywords]')->getAttribute('content');
-        }
-
-        if ($document->has('meta[name=description]')) {
-            $description = $document->first('meta[name=description]')->getAttribute('content');
-        }
-
+        $h1 = optional($document->first('h1'))->text();
+        $keywords = optional($document->first('meta[name=keywords]'))->getAttribute('content');
+        $description = optional($document->first('meta[name=description]'))->getAttribute('content');
+        
         DB::table('domain_checks')->insert([
                 'domain_id' => $domainId,
                 'status_code' => $statusCode,

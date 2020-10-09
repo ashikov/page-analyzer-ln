@@ -11,7 +11,7 @@ class DomainCheckControllerTest extends TestCase
 {
     use DatabaseMigrations;
     
-    private $id;
+    private int $id;
 
     public function testStore(): void
     {

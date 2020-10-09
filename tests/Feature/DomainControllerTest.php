@@ -10,7 +10,7 @@ class DomainControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private $id;
+    private int $id;
 
     protected function setUp(): void
     {
