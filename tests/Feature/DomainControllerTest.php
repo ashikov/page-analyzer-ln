@@ -10,6 +10,8 @@ class DomainControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
+    private $id;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -35,19 +37,19 @@ class DomainControllerTest extends TestCase
         ]);
     }
 
-    public function testIndex()
+    public function testIndex(): void
     {
         $response = $this->get(route('domain.index'));
         $response->assertOk();
     }
 
-    public function testShow()
+    public function testShow(): void
     {
         $response = $this->get(route('domain.show', $this->id));
         $response->assertOk();
     }
 
-    public function testStore()
+    public function testStore(): void
     {
         $url = 'http://jopa.ru';
         $response = $this->post(route('domain.store', ['domain[name]' => $url]));

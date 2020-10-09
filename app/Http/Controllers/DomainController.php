@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class DomainController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'domain.name' => 'required|url'
@@ -21,7 +23,7 @@ class DomainController extends Controller
 
         $domain = DB::table('domains')->where('name', $domainName)->first();
 
-        if ($domain) {
+        if (isset($domain)) {
             flash('Domain exists')->error();
             return redirect()->route('domain.show', $domain->id);
         }
@@ -38,7 +40,7 @@ class DomainController extends Controller
         return redirect()->route('domain.show', $newDomainId);
     }
 
-    public function index()
+    public function index(): View
     {
         $domains = DB::table('domains')->orderBy('id', 'desc')->get();
         $lastChecks = DB::table('domain_checks')->orderBy('created_at', 'asc')->get()->keyBy('domain_id');
@@ -46,7 +48,7 @@ class DomainController extends Controller
         return view('domain.index', compact('domains', 'lastChecks'));
     }
 
-    public function show($id)
+    public function show(int $id): View
     {
         $domain = DB::table('domains')->where('id', $id)->first();
         $checks = DB::table('domain_checks')->where('domain_id', $id)->get();

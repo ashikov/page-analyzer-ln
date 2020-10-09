@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\ConnectionException;
 use DiDom\Document;
+use Illuminate\Http\RedirectResponse;
 
 class DomainCheckController extends Controller
 {
-    public function store($domainId)
+    public function store(int $domainId): RedirectResponse
     {
         $domain = DB::table('domains')->where('id', $domainId)->first();
 

@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Http;
 class DomainCheckControllerTest extends TestCase
 {
     use DatabaseMigrations;
+    
+    private $id;
 
-    public function testStore()
+    public function testStore(): void
     {
         $this->id = DB::table('domains')->insertGetId([
             'name' => 'http://google.com',
