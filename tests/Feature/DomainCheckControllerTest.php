@@ -22,7 +22,7 @@ class DomainCheckControllerTest extends TestCase
         ]);
 
         Http::fake([
-            'google.com' => Http::response(200)
+            'google.com' => Http::response(null, 200)
         ]);
 
         $response = $this->post(route('domain.check.store', $this->id));
