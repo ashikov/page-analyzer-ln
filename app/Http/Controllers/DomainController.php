@@ -11,9 +11,16 @@ class DomainController extends Controller
 {
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'domain.name' => 'required|url'
+        $validator = app('validator')->make($request->input('domain'), [
+            'name' => 'required|url'
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('welcome')
+                             ->withErrors($validator)
+                             ->withInput();
+        };
+    
         $domainData = $request->input('domain');
         $url = $domainData['name'];
         $parsedUrl = parse_url(strtolower($url));
