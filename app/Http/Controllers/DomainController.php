@@ -16,9 +16,7 @@ class DomainController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('welcome')
-                             ->withErrors($validator)
-                             ->withInput();
+            return redirect()->route('welcome')->withErrors($validator)->withInput();
         };
     
         $domainData = $request->input('domain');

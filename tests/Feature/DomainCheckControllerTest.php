@@ -19,7 +19,7 @@ class DomainCheckControllerTest extends TestCase
 
         $path = __DIR__ . '/../fixtures/index.html';
         $fakeContent = file_get_contents($path);
-        Http::fake(Http::response($fakeContent, 200));
+        Http::fake(fn($request) => Http::response($fakeContent, 200));
 
         $response = $this->post(route('domains.checks.store', $id));
         $response->assertSessionHasNoErrors();
