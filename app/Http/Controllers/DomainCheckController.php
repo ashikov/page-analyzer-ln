@@ -19,8 +19,9 @@ class DomainCheckController extends Controller
             $response = Http::get($domain->name);
 
             $statusCode = $response->status();
-        
-            $document = new Document($domain->name, true);
+            
+            $html = $response->getBody()->getContents();
+            $document = new Document($html);
     
             $h1 = optional($document->first('h1'))->text();
             $keywords = optional($document->first('meta[name=keywords]'))->getAttribute('content');
