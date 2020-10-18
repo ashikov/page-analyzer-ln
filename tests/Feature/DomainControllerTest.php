@@ -4,12 +4,9 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class DomainControllerTest extends TestCase
 {
-    use DatabaseMigrations;
-
     private int $id;
 
     protected function setUp(): void
@@ -39,20 +36,20 @@ class DomainControllerTest extends TestCase
 
     public function testIndex(): void
     {
-        $response = $this->get(route('domain.index'));
+        $response = $this->get(route('domains.index'));
         $response->assertOk();
     }
 
     public function testShow(): void
     {
-        $response = $this->get(route('domain.show', $this->id));
+        $response = $this->get(route('domains.show', $this->id));
         $response->assertOk();
     }
 
     public function testStore(): void
     {
         $url = 'http://jopa.ru';
-        $response = $this->post(route('domain.store', ['domain[name]' => $url]));
+        $response = $this->post(route('domains.store', ['domain[name]' => $url]));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
     }

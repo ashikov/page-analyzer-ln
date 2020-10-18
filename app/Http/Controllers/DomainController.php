@@ -31,8 +31,8 @@ class DomainController extends Controller
         $domain = DB::table('domains')->where('name', $domainName)->first();
 
         if (isset($domain)) {
-            flash('Domain exists')->error();
-            return redirect()->route('domain.show', $domain->id);
+            flash('Domain exists');
+            return redirect()->route('domains.show', $domain->id);
         }
 
         $newDomainId = DB::table('domains')
@@ -44,13 +44,18 @@ class DomainController extends Controller
 
         
         flash('Domain has been added')->success();
-        return redirect()->route('domain.show', $newDomainId);
+        return redirect()->route('domains.show', $newDomainId);
     }
 
     public function index(): View
     {
         $domains = DB::table('domains')->orderBy('id', 'desc')->get();
-        $lastChecks = DB::table('domain_checks')->orderBy('created_at', 'asc')->get()->keyBy('domain_id');
+        $lastChecks = DB::table('domain_checks')
+            ->distinct('domain_id')
+            ->orderBy('domain_id')
+            ->latest()
+            ->get()
+            ->keyBy('domain_id');
 
         return view('domain.index', compact('domains', 'lastChecks'));
     }

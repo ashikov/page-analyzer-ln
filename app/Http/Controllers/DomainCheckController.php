@@ -17,29 +17,30 @@ class DomainCheckController extends Controller
 
         try {
             $response = Http::get($domain->name);
+
+            $statusCode = $response->status();
+        
+            $document = new Document($domain->name, true);
+    
+            $h1 = optional($document->first('h1'))->text();
+            $keywords = optional($document->first('meta[name=keywords]'))->getAttribute('content');
+            $description = optional($document->first('meta[name=description]'))->getAttribute('content');
+            
+            DB::table('domain_checks')->insert([
+                    'domain_id' => $domainId,
+                    'status_code' => $statusCode,
+                    'h1' => $h1,
+                    'keywords' => $keywords,
+                    'description' => $description,
+                    "created_at" =>  \Carbon\Carbon::now(),
+                    "updated_at" => \Carbon\Carbon::now()
+            ]);
+    
+            flash('Domain has been checked successfully')->success();
         } catch (ConnectionException $exception) {
-            flash('Could not check domain')->error();
-            return redirect()->route('domain.show', $domainId);
+            flash('Could not connect to the website')->error();
         }
         
-        $statusCode = $response->status();
-        
-        $document = new Document($domain->name, true);
-
-        $h1 = optional($document->first('h1'))->text();
-        $keywords = optional($document->first('meta[name=keywords]'))->getAttribute('content');
-        $description = optional($document->first('meta[name=description]'))->getAttribute('content');
-        
-        DB::table('domain_checks')->insert([
-                'domain_id' => $domainId,
-                'status_code' => $statusCode,
-                'h1' => $h1 ?? null,
-                'keywords' => $keywords ?? null,
-                'description' => $description ?? null,
-                "created_at" =>  \Carbon\Carbon::now(),
-                "updated_at" => \Carbon\Carbon::now()
-        ]);
-
-        return redirect()->route('domain.show', $domainId);
+        return redirect()->route('domains.show', $domainId);
     }
 }

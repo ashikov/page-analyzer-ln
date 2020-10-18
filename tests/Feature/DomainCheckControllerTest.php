@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Http;
 
 class DomainCheckControllerTest extends TestCase
 {
-    use DatabaseMigrations;
-    
     private int $id;
 
     public function testStore(): void
@@ -25,7 +23,7 @@ class DomainCheckControllerTest extends TestCase
             'google.com' => Http::response(null, 200)
         ]);
 
-        $response = $this->post(route('domain.check.store', $this->id));
+        $response = $this->post(route('domains.checks.store', $this->id));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
         $this->assertDatabaseHas('domain_checks', [
