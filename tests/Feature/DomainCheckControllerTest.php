@@ -9,26 +9,30 @@ use Illuminate\Support\Facades\Http;
 
 class DomainCheckControllerTest extends TestCase
 {
-    private int $id;
-
     public function testStore(): void
     {
-        $this->id = DB::table('domains')->insertGetId([
-            'name' => 'http://google.com',
+        $id = DB::table('domains')->insertGetId([
+            'name' => 'https://lz.com',
             "created_at" =>  \Carbon\Carbon::now(),
             "updated_at" => \Carbon\Carbon::now()
         ]);
 
-        Http::fake([
-            'google.com' => Http::response(null, 200)
-        ]);
+        $path = __DIR__ . '/../fixtures/index.html';
+        $fakeContent = file_get_contents($path);
+        Http::fake(Http::response($fakeContent, 200));
 
-        $response = $this->post(route('domains.checks.store', $this->id));
+        $response = $this->post(route('domains.checks.store', $id));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('domain_checks', [
-            'domain_id' => $this->id,
-            'status_code' => 200
-        ]);
+
+        $checkData = [
+            'domain_id' => $id,
+            'status_code' => '200',
+            'keywords' => 'hard rock',
+            'description' => 'Led Zeppelin were an English rock band formed in London in 1968',
+            'h1' => 'Led Zeppelin'
+        ];
+        
+        $this->assertDatabaseHas('domain_checks', $checkData);
     }
 }
