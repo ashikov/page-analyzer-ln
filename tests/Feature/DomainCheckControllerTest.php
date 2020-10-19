@@ -18,6 +18,12 @@ class DomainCheckControllerTest extends TestCase
 
         $path = __DIR__ . '/../fixtures/index.html';
         $fakeContent = file_get_contents($path);
+
+
+        if ($fakeContent === false) {
+            throw new \Exception('Something wrong with fixtures file');
+        }
+
         Http::fake(fn($request) => Http::response($fakeContent, 200));
 
         $response = $this->post(route('domains.checks.store', $id));
