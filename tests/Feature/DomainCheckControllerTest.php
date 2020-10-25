@@ -3,8 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\{DB, Http};
 
 class DomainCheckControllerTest extends TestCase
 {
@@ -37,7 +36,7 @@ class DomainCheckControllerTest extends TestCase
             'description' => 'Led Zeppelin were an English rock band formed in London in 1968',
             'h1' => 'Led Zeppelin'
         ];
-        
+
         $this->assertDatabaseHas('domain_checks', $checkData);
     }
 }

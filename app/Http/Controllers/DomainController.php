@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\{Request, RedirectResponse};
 use Illuminate\View\View;
 
 class DomainController extends Controller
@@ -18,7 +17,7 @@ class DomainController extends Controller
         if ($validator->fails()) {
             return redirect()->route('welcome')->withErrors($validator)->withInput();
         };
-    
+
         $domainData = $request->input('domain');
         $url = $domainData['name'];
         $parsedUrl = parse_url(strtolower($url));
@@ -40,7 +39,7 @@ class DomainController extends Controller
                 "updated_at" => \Carbon\Carbon::now()
             ]);
 
-        
+
         flash('Domain has been added')->success();
         return redirect()->route('domains.show', $newDomainId);
     }
@@ -52,6 +51,7 @@ class DomainController extends Controller
             ->distinct('domain_id')
             ->orderBy('domain_id')
             ->latest()
+            ->whereIn('domain_id', $domains->pluck('id'))
             ->get()
             ->keyBy('domain_id');
 
@@ -60,9 +60,9 @@ class DomainController extends Controller
 
     public function show(int $id): View
     {
-        $domain = DB::table('domains')->where('id', $id)->first();
+        $domain = DB::table('domains')->find($id);
         $checks = DB::table('domain_checks')->where('domain_id', $id)->get();
-        
+
         return view('domain.show', compact('domain', 'checks'));
     }
 }
