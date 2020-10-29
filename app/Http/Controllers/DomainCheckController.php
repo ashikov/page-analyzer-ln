@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\{DB, Http};
 use Illuminate\Http\{Request, RedirectResponse};
-use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\Client\{RequestException, ConnectionException};
 use DiDom\Document;
 
 class DomainCheckController extends Controller
@@ -36,7 +36,7 @@ class DomainCheckController extends Controller
             ]);
 
             flash('Domain has been checked successfully')->success();
-        } catch (RequestException $exception) {
+        } catch (RequestException | ConnectionException $exception) {
             $message = $exception->getMessage();
             flash($message)->error();
         }
