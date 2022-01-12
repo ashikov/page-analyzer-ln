@@ -4,31 +4,31 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>Page Analyzer</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        
+
         <!-- Scripts -->
         <script src="/js/app.js"></script>
-        
+
         <!-- Styles -->
         <link href="/css/app.css" rel="stylesheet">
     </head>
     <body class="d-flex flex-column">
         <header>
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-                <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+                <a class="navbar-brand mx-3" href="{{ route('welcome') }}">Page Analyzer</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ url('/') }}">Home</a>
+                            <a class="nav-link active" href="{{ route('welcome') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ route('domains.index') }}">Domains</a>
+                            <a class="nav-link " href="{{ route('domains.index') }}">URLs</a>
                         </li>
                     </ul>
                 </div>
@@ -43,7 +43,7 @@
                 @endforeach
             </div>
         @endif
-        
+
         <main class="flex-grow-1">
             @yield('content')
         </main>
