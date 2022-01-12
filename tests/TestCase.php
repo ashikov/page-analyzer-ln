@@ -2,7 +2,10 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\{TestCase as BaseTestCase, DatabaseMigrations};
+use Illuminate\Foundation\Testing\{
+    TestCase as BaseTestCase,
+    DatabaseMigrations
+};
 
 abstract class TestCase extends BaseTestCase
 {
