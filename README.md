@@ -1,7 +1,7 @@
 # Page Analyzer
 
 ![Master workflow](https://github.com/ashikov/php-project-lvl3/workflows/Master%20workflow/badge.svg)
-[![Maintainability](https://api.codeclimate.com/v1/badges/106060f663c8e9d56c9b/maintainability)](https://codeclimate.com/github/ashikov/php-project-lvl3/maintainability)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/fa55dd5c534c46ef84f2046d2c0bae99)](https://www.codacy.com/gh/ashikov/page-analyzer-ln/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ashikov/page-analyzer-ln&amp;utm_campaign=Badge_Grade)
 
 App to check web pages
 
