@@ -10,11 +10,13 @@ on:
 
 jobs:
   build:
+    env:
+      DB_HOST: localhost
     runs-on: ubuntu-latest
 
     services:
       db:
-        image: postgres:12.4
+        image: postgres:latest
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
@@ -23,18 +25,16 @@ jobs:
           - 5432:5432
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
 
     - name: PHP Security Checker
-      uses: StephaneBour/actions-php-security-checker@1.0
+      uses: symfonycorp/security-checker-action@v2
 
     - name: Setup project
       run: make setup
-      env:
-        DB_HOST: localhost
 
     - name: Check lint
       run: make lint
 
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
+    - name: Execute tests
       run: make test

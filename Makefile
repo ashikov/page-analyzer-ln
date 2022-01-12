@@ -16,7 +16,7 @@ sail-test:
 sail-stop:
 	./vendor/bin/sail stop
 
-setup:
+sail-setup:
 	composer install
 	./vendor/bin/sail build
 	./vendor/bin/sail up -d
@@ -27,6 +27,15 @@ setup:
 	npm install
 	npm run dev
 	./vendor/bin/sail stop
+
+setup:
+	composer install
+	cp -n .env.example .env || true
+	php artisan key:gen --ansi
+	php artisan migrate
+	php artisan db:seed
+	npm ci
+	npm run dev
 
 start:
 	heroku local -f Procfile.dev
