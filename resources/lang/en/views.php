@@ -5,21 +5,20 @@ return [
         'title' => 'Page Analyzer',
         'subtitle' => 'Check web pages for free'
     ],
-    'domains' => [
-        'title' => 'Domains',
+    'urls' => [
+        'title' => 'URLs',
         'id' => 'ID',
         'name' => 'Name',
         'created_at' => 'Created At',
-        'updated_at' => 'Updated At',
         'last_check' => 'Last Check',
         'status_code' => 'Status Code',
     ],
     'checks' => [
-        'title' => 'Checks',
+        'table_title' => 'Checks',
         'id' => 'ID',
         'status_code' => 'Status Code',
         'h1' => 'h1',
-        'keywords' => 'Keywords',
+        'title' => 'Title',
         'description' => 'Description',
         'created_at' => 'Created At'
     ]

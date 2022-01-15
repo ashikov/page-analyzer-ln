@@ -31,7 +31,7 @@
                             <a class="nav-link active" href="{{ route('welcome') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ route('domains.index') }}">URLs</a>
+                            <a class="nav-link " href="{{ route('urls.index') }}">URLs</a>
                         </li>
                     </ul>
                 </div>

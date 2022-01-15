@@ -5,11 +5,11 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Support\Facades\{DB, Http};
 
-class DomainCheckControllerTest extends TestCase
+class UrlCheckControllerTest extends TestCase
 {
     public function testStore(): void
     {
-        $id = DB::table('domains')->insertGetId([
+        $id = DB::table('urls')->insertGetId([
             'name' => 'https://lz.com',
             "created_at" =>  \Carbon\Carbon::now(),
             "updated_at" => \Carbon\Carbon::now()
@@ -25,18 +25,18 @@ class DomainCheckControllerTest extends TestCase
 
         Http::fake(fn($request) => Http::response($fakeContent, 200));
 
-        $response = $this->post(route('domains.checks.store', $id));
+        $response = $this->post(route('urls.checks.store', $id));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
         $checkData = [
-            'domain_id' => $id,
+            'url_id' => $id,
             'status_code' => '200',
-            'keywords' => 'hard rock',
+            'title' => 'Led Zeppelin',
             'description' => 'Led Zeppelin were an English rock band formed in London in 1968',
             'h1' => 'Led Zeppelin'
         ];
 
-        $this->assertDatabaseHas('domain_checks', $checkData);
+        $this->assertDatabaseHas('url_checks', $checkData);
     }
 }

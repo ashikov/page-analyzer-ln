@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 
-class DomainControllerTest extends TestCase
+class UrlControllerTest extends TestCase
 {
     private int $id;
 
@@ -15,19 +15,19 @@ class DomainControllerTest extends TestCase
 
         $time = \Carbon\Carbon::now();
 
-        DB::table('domains')->insert([
+        DB::table('urls')->insert([
             'name' => 'http://yandex.ru',
             "created_at" =>  $time,
             "updated_at" => $time
         ]);
 
-        DB::table('domains')->insert([
+        DB::table('urls')->insert([
             'name' => 'http://duckduckgo.com',
             "created_at" =>  $time,
             "updated_at" => $time
         ]);
 
-        $this->id = DB::table('domains')->insertGetId([
+        $this->id = DB::table('urls')->insertGetId([
             'name' => 'http://google.com',
             "created_at" =>  $time,
             "updated_at" => $time
@@ -36,20 +36,20 @@ class DomainControllerTest extends TestCase
 
     public function testIndex(): void
     {
-        $response = $this->get(route('domains.index'));
+        $response = $this->get(route('urls.index'));
         $response->assertOk();
     }
 
     public function testShow(): void
     {
-        $response = $this->get(route('domains.show', $this->id));
+        $response = $this->get(route('urls.show', $this->id));
         $response->assertOk();
     }
 
     public function testStore(): void
     {
         $url = 'http://jopa.ru';
-        $response = $this->post(route('domains.store', ['domain[name]' => $url]));
+        $response = $this->post(route('urls.store', ['url[name]' => $url]));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
     }

@@ -7,14 +7,14 @@ use Illuminate\Http\{Request, RedirectResponse};
 use Illuminate\Http\Client\{RequestException, ConnectionException};
 use DiDom\Document;
 
-class DomainCheckController extends Controller
+class UrlCheckController extends Controller
 {
-    public function store(int $domainId): RedirectResponse
+    public function store(int $urlId): RedirectResponse
     {
-        $domain = DB::table('domains')->find($domainId);
+        $url = DB::table('urls')->find($urlId);
 
         try {
-            $response = Http::get($domain->name);
+            $response = Http::get($url->name);
 
             $statusCode = $response->status();
 
@@ -22,25 +22,25 @@ class DomainCheckController extends Controller
             $document = new Document($html);
 
             $h1 = optional($document->first('h1'))->text();
-            $keywords = optional($document->first('meta[name=keywords]'))->getAttribute('content');
+            $title = optional($document->first('title'))->text();
             $description = optional($document->first('meta[name=description]'))->getAttribute('content');
 
-            DB::table('domain_checks')->insert([
-                    'domain_id' => $domainId,
+            DB::table('url_checks')->insert([
+                    'url_id' => $urlId,
                     'status_code' => $statusCode,
                     'h1' => $h1,
-                    'keywords' => $keywords,
+                    'title' => $title,
                     'description' => $description,
                     "created_at" =>  \Carbon\Carbon::now(),
                     "updated_at" => \Carbon\Carbon::now()
             ]);
 
-            flash('Domain has been checked successfully')->success();
+            flash('Url has been checked successfully')->success();
         } catch (RequestException | ConnectionException $exception) {
             $message = $exception->getMessage();
             flash($message)->error();
         }
 
-        return redirect()->route('domains.show', $domainId);
+        return redirect()->route('urls.show', $urlId);
     }
 }

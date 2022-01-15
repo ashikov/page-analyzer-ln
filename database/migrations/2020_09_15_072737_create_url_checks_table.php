@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDomainChecksTable extends Migration
+class CreateUrlChecksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateDomainChecksTable extends Migration
      */
     public function up()
     {
-        Schema::create('domain_checks', function (Blueprint $table) {
+        Schema::create('url_checks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('domain_id');
-            $table->foreign('domain_id')->references('id')->on('domains');
+            $table->foreignId('url_id');
+            $table->foreign('url_id')->references('id')->on('urls');
             $table->integer('status_code')->nullable();
             $table->string('h1')->nullable();
-            $table->string('keywords')->nullable();
+            $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
         });
@@ -32,6 +32,6 @@ class CreateDomainChecksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('domain_checks');
+        Schema::dropIfExists('url_checks');
     }
 }

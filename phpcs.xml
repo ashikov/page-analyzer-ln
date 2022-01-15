@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="PSR12">    
+<ruleset name="PSR12">
 <description>The PSR12 coding standard.</description>
 
 <arg name="basepath" value="."/>

@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
-use App\Http\Controllers\DomainController;
-use App\Http\Controllers\DomainCheckController;
+use App\Http\Controllers\UrlController;
+use App\Http\Controllers\UrlCheckController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,5 +21,5 @@ Route::get('/', function (): View {
     return view('welcome');
 })->name('welcome');
 
-Route::resource('domains', DomainController::class)->only(['index', 'store', 'show']);
-Route::resource('domains.checks', DomainCheckController::class)->only(['store']);
+Route::resource('urls', UrlController::class)->only(['index', 'store', 'show']);
+Route::resource('urls.checks', UrlCheckController::class)->only(['store']);
