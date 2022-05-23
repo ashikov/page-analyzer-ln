@@ -18,7 +18,6 @@ use App\Http\Controllers\UrlCheckController;
 */
 
 Route::get('/', function (): View {
-    \Log::debug('Test debug message');
     return view('welcome');
 })->name('welcome');
 
